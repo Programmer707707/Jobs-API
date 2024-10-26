@@ -1,3 +1,6 @@
+## Production URL integrated Swagger docs: 
+https://jobs-api-wtdq.onrender.com/
+
 #### Setup
 
 ```bash
