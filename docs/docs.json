@@ -1,0 +1,229 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+	  "title": "Jobs-API",
+	  "description": "API for managing job listings, user registration, and authentication",
+	  "version": "1.0.0"
+	},
+	"servers": [
+	  {
+		"url": "http://localhost:3000/api/v1",
+		"description": "Local development server"
+	  }
+	],
+	"paths": {
+	  "/auth/register": {
+		"post": {
+		  "summary": "Register a new user",
+		  "requestBody": {
+			"required": true,
+			"content": {
+			  "application/json": {
+				"schema": {
+				  "type": "object",
+				  "properties": {
+					"name": {
+					  "type": "string",
+					  "example": "peter"
+					},
+					"email": {
+					  "type": "string",
+					  "example": "peter@gmail.com"
+					},
+					"password": {
+					  "type": "string",
+					  "example": "peter01"
+					}
+				  }
+				}
+			  }
+			}
+		  },
+		  "responses": {
+			"200": {
+			  "description": "User registered successfully"
+			}
+		  }
+		}
+	  },
+	  "/auth/login": {
+		"post": {
+		  "summary": "Login an existing user",
+		  "requestBody": {
+			"required": true,
+			"content": {
+			  "application/json": {
+				"schema": {
+				  "type": "object",
+				  "properties": {
+					"email": {
+					  "type": "string",
+					  "example": "user01@gmail.com"
+					},
+					"password": {
+					  "type": "string",
+					  "example": "user01"
+					}
+				  }
+				}
+			  }
+			}
+		  },
+		  "responses": {
+			"200": {
+			  "description": "User logged in successfully"
+			}
+		  }
+		}
+	  },
+	  "/jobs": {
+		"get": {
+		  "summary": "Get all jobs",
+		  "responses": {
+			"200": {
+			  "description": "List of all jobs"
+			}
+		  },
+		  "security": [
+			{
+			  "bearerAuth": []
+			}
+		  ]
+		},
+		"post": {
+		  "summary": "Create a new job",
+		  "requestBody": {
+			"required": true,
+			"content": {
+			  "application/json": {
+				"schema": {
+				  "type": "object",
+				  "properties": {
+					"company": {
+					  "type": "string",
+					  "example": "NETFLIX"
+					},
+					"position": {
+					  "type": "string",
+					  "example": "SQL developer"
+					}
+				  }
+				}
+			  }
+			}
+		  },
+		  "responses": {
+			"201": {
+			  "description": "Job created successfully"
+			}
+		  },
+		  "security": [
+			{
+			  "bearerAuth": []
+			}
+		  ]
+		}
+	  },
+	  "/jobs/{id}": {
+		"get": {
+		  "summary": "Get a job by ID",
+		  "parameters": [
+			{
+			  "name": "id",
+			  "in": "path",
+			  "required": true,
+			  "schema": {
+				"type": "string"
+			  }
+			}
+		  ],
+		  "responses": {
+			"200": {
+			  "description": "Job details"
+			}
+		  },
+		  "security": [
+			{
+			  "bearerAuth": []
+			}
+		  ]
+		},
+		"patch": {
+		  "summary": "Update a job",
+		  "parameters": [
+			{
+			  "name": "id",
+			  "in": "path",
+			  "required": true,
+			  "schema": {
+				"type": "string"
+			  }
+			}
+		  ],
+		  "requestBody": {
+			"required": true,
+			"content": {
+			  "application/json": {
+				"schema": {
+				  "type": "object",
+				  "properties": {
+					"company": {
+					  "type": "string",
+					  "example": "EPAM"
+					},
+					"position": {
+					  "type": "string",
+					  "example": "Java Developer"
+					}
+				  }
+				}
+			  }
+			}
+		  },
+		  "responses": {
+			"200": {
+			  "description": "Job updated successfully"
+			}
+		  },
+		  "security": [
+			{
+			  "bearerAuth": []
+			}
+		  ]
+		},
+		"delete": {
+		  "summary": "Delete a job by ID",
+		  "parameters": [
+			{
+			  "name": "id",
+			  "in": "path",
+			  "required": true,
+			  "schema": {
+				"type": "string"
+			  }
+			}
+		  ],
+		  "responses": {
+			"204": {
+			  "description": "Job deleted successfully"
+			}
+		  },
+		  "security": [
+			{
+			  "bearerAuth": []
+			}
+		  ]
+		}
+	  }
+	},
+	"components": {
+	  "securitySchemes": {
+		"bearerAuth": {
+		  "type": "http",
+		  "scheme": "bearer",
+		  "bearerFormat": "JWT"
+		}
+	  }
+	}
+  }
+  
